@@ -4,7 +4,6 @@ const session = require("express-session");
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-
 const node_session_secret = '1fa055c2-7bcc-4b30-8167-ab9012beab92';
 
 app.use(session({
@@ -19,8 +18,8 @@ app.get("/changeStyle", function(req, res) {
 
     res.redirect("/");
 })
+
 app.get("/", function(req, res) {
-    // pageHits++;
     const action = req.query.action;
     if (!req.session.counter) {
         req.session.counter = 0;
@@ -38,12 +37,6 @@ app.get("/", function(req, res) {
         req.session.counter--;
     }
 
-    if (req.session.pageHits) {
-        req.session.pageHits++;
-    } else {
-        req.session.pageHits = 1;
-    }
-    // res.send(`Hello World!!! - ${req.session.pageHits} times!` );
     res.send(`<div style='color: ${req.session.color}; background-color: ${req.session.bgcolor}'><button onclick="window.location.href='/?action=up'">Up</button> ${req.session.counter} <button onclick="window.location.href='/?action=down'">Down</button></div>`);
 })
 
